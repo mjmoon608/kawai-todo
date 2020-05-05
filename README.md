@@ -22,6 +22,7 @@ android emulator reload 단축키: R+R
 - https://reactnative.dev/docs/dimensions
 
 - StyleSheet 에서 `borderRadius: 10` 는 네모난 모서리를 둥글게 바꿔줌
+  - <b>완전 동그란 원을 만들때는 borderRadius는 항상 width, height의 절반이어야 함.</b>
 
 ```
 borderTopLeftRadius: 10,
@@ -88,4 +89,14 @@ borderTopRightRadius: 10,
             returnKeyType={"done"}
             autoCorrect={false}
 />
+```
+
+## 5 Conding the UI part Three - To Do Component
+
+- ScrollView 안에 styles를 패스하는 방법.
+
+```
+<ScrollView contentContainerStyle={styles.toDos}>
+    <ToDo />
+</ScrollView>
 ```
