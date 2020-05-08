@@ -100,3 +100,23 @@ borderTopRightRadius: 10,
     <ToDo />
 </ScrollView>
 ```
+
+## 6 Styling the To Do Component
+
+- onPress
+  : 터치가 해제 될 때 호출되지만 취소 된 경우에는 호출되지 않습니다 (예 : 응답기 잠금을 도용하는 스크롤 등).
+- onPressIn
+  : onPress 이전에도 터치 가능한 요소를 누르고 호출하자마자 호출됩니다. 네트워크 요청을 할 때 유용합니다.
+- onPressOut
+  : onPress 이전에도 터치가 해제 되 자마자 호출됩니다.
+
+- https://reactnative.dev/docs/touchablewithoutfeedback#onpressin 여기에 나와있음.
+
+## 7 Styling the To Do Component part Two
+
+## 8 Introducing AppLoading
+
+- `<TextInput onSubmitEditing={this._addToDo}>` -> onSubmitEditing은 키보드의 "done" 버튼을 눌렀을 때를 뜻함.
+
+- toDo를 array가 아닌 object로 형성하는 이유
+  - 자주 바꾸는 즉, 수정하고 삭제하고 완료표시 등 이를 쉽게 하는 방법은 오브젝트임

@@ -9,17 +9,64 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
+import { AppLoading } from "expo";
 import ToDo from "./ToDo";
 
 const { height, width } = Dimensions.get("window");
 
+const seed = () => {
+  const one = Math.floor((Math.random() * 100) / 3.92);
+  const two = Math.floor((Math.random() * 100) / 3.92);
+  const three = Math.floor((Math.random() * 100) / 3.92);
+  const four = Math.floor((Math.random() * 100) / 3.92);
+  const five = Math.floor((Math.random() * 100) / 3.92);
+  const six = Math.floor((Math.random() * 100) / 3.92);
+  const seven = Math.floor((Math.random() * 100) / 3.92);
+  const eight = Math.floor((Math.random() * 100) / 3.92);
+  const nine = Math.floor((Math.random() * 100) / 3.92);
+  const ten = Math.floor((Math.random() * 100) / 3.92);
+  const eleven = Math.floor((Math.random() * 100) / 3.92);
+  const twelve = Math.floor((Math.random() * 100) / 3.92);
+  const thirteen = Math.floor((Math.random() * 100) / 3.92);
+  const fourteen = Math.floor((Math.random() * 100) / 3.92);
+  const fifteen = Math.floor((Math.random() * 100) / 3.92);
+  const sixteen = Math.floor((Math.random() * 100) / 3.92);
+  return [
+    one,
+    two,
+    three,
+    four,
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+    eleven,
+    twelve,
+    thirteen,
+    fourteen,
+    fifteen,
+    sixteen,
+  ];
+};
+
 export default class App extends React.Component {
   state = {
     newToDo: "",
+    loadedToDos: false,
+  };
+  componentDidMount = () => {
+    this._loadToDos();
   };
 
   render() {
-    const { newToDo } = this.state;
+    const { newToDo, loadedToDos } = this.state;
+    if (!loadedToDos) {
+      return <AppLoading />;
+    }
 
     return (
       <View style={styles.container}>
@@ -34,9 +81,10 @@ export default class App extends React.Component {
             placeholderTextColor={"#999"}
             returnKeyType={"done"}
             autoCorrect={false}
+            onSubmitEditing={this._addToDo}
           />
           <ScrollView contentContainerStyle={styles.toDos}>
-            <ToDo />
+            <ToDo text={"Hello i`m a "} />
           </ScrollView>
         </View>
       </View>
@@ -47,6 +95,38 @@ export default class App extends React.Component {
     this.setState({
       newToDo: text,
     });
+  };
+
+  _loadToDos = () => {
+    this.setState({
+      loadedToDos: true,
+    });
+  };
+
+  _addToDo = () => {
+    const { newToDo } = this.state;
+    if (newToDo !== "") {
+      this.setState((prevState) => {
+        const ID = uuidv4({ random: seed() });
+        const newToDoObject = {
+          [ID]: {
+            id: ID,
+            isCompleted: false,
+            text: newToDo,
+            createdAt: Date.now(),
+          },
+        };
+        const newState = {
+          ...prevState,
+          newToDo: "",
+          toDos: {
+            ...prevState.toDos,
+            ...newToDoObject,
+          },
+        };
+        return { ...newState };
+      });
+    }
   };
 }
 
